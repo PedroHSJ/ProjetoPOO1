@@ -2,7 +2,7 @@
  * IFPB - TSI - POO - PROJETO1
  * Prof. Fausto Ayres
  * 
- * Aplicação console para testar a classe JogoDaForca
+ * Aplicaï¿½ï¿½o console para testar a classe JogoDaForca
  * 
  */
 import java.util.ArrayList;
@@ -13,19 +13,21 @@ public class AplicacaoConsole {
 	public static void main(String[] args) {
 		try {
 			Scanner teclado = new Scanner (System.in);
-			String[] penalidades = {"perna1", "perna2", "braço1", "braço2", "tronco", "cabeça"};
+			String[] penalidades = {"perna1", "perna2", "braï¿½o1", "braï¿½o2", "tronco", "cabeï¿½a"};
 			String letra;
 			String[] letrasAdivinhadas; 	//letras adivinhadas
 			ArrayList<Integer> posicoes;	//posicoes adivinhadas
 			
 			JogoDaForca jogo = new JogoDaForca("palavras.csv");
-			jogo.iniciar();
+			System.out.println(jogo);
+
+			/*jogo.iniciar();
 			System.out.println("dica da palavra=" + jogo.getDica());
 			System.out.println("tamanho da palavra=" + jogo.getTamanho());
 			letrasAdivinhadas = new String[jogo.getTamanho()];	
-			Arrays.fill(letrasAdivinhadas, "");
+			Arrays.fill(letrasAdivinhadas, "");*/
 
-			do {
+			/*do {
 				System.out.println("\ndigite uma letra da palavra ");
 				letra = teclado.nextLine();
 				try {
@@ -45,12 +47,12 @@ public class AplicacaoConsole {
 					System.out.println(e.getMessage());
 				}
 			}
-			while(!jogo.terminou());
+			while(!jogo.terminou());*/
 
-			teclado.close();
+			/*teclado.close();
 			System.out.println("\n---- game over ----");
 			System.out.println("resultado final="+jogo.getResultado() );
-			System.out.println("situacao final ="+ Arrays.toString(letrasAdivinhadas));
+			System.out.println("situacao final ="+ Arrays.toString(letrasAdivinhadas));*/
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());

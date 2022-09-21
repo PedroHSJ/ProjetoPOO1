@@ -15,27 +15,29 @@ public class JogoDaForca {
         /*lê as palavras + dicas do arquivo e as coloca nas respectivas listas. Lança (throw) a exceção “arquivo inexistente”,
         caso o arquivo não exista.*/
 
-        public void JogoDaForca(String nomearquivo)  throws Exception{
+        public JogoDaForca(String nomearquivo)  throws Exception{
             // ler do arquivo placas.csv, a placa de cada vaga ocupada no momento
             try {
                 Scanner arquivo = new Scanner(new File(nomearquivo));
                 String entrada, palavra;
-                int vaga;
+                String dica;
                 String [] partes;
-                String cabecalho = arquivo.nextLine();
                 while(arquivo.hasNextLine()) {
                     entrada = arquivo.nextLine();
                     partes = entrada.split(";");
-                    //vaga = Integer.parseInt(partes[0]);
+                    dica = partes[1];
                     palavra = partes[0];
-                    //letras[vaga-1]=palavra;
+                    palavras.add(palavra);
+                    dicas.add(dica);
                 }
+                arquivo.close();
+                System.out.println(palavras);
             } catch (FileNotFoundException e) {
                 throw new Exception("arquivo inexistente");
             }
         }
 
-        public void iniciar(){
+        /*public void iniciar(){
 
         }
 
@@ -49,7 +51,7 @@ public class JogoDaForca {
 
         public ArrayList<Integer> getPosicoes(String letra) throws Exception{
 
-        }
+        }*/
 
         
 
