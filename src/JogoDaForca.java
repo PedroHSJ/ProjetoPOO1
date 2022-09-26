@@ -41,8 +41,11 @@ public class JogoDaForca {
         public void iniciar(){
             String pontos = "";
             String partes;
-            Random sorteio = new Random();
-            palavra_sorteada = palavras.get(sorteio.nextInt(palavras.size()));
+            Random random = new Random();
+            int numero_sorteado = random.nextInt(palavras.size());
+            palavra_sorteada = palavras.get(numero_sorteado);
+            dica = dicas.get(numero_sorteado);
+
 
             //Adicionando letras da palavra sorteada no array letras
             for(int i = 0; i<palavra_sorteada.length(); i++){
@@ -59,15 +62,16 @@ public class JogoDaForca {
         }
 
         public String getDica(){
-            if(palavra_sorteada == palavras.get(0)){
-                return dicas.get(0);
-            }else if(palavra_sorteada == palavras.get(1)){
-                return dicas.get(1);
-            }else if(palavra_sorteada == palavras.get(2)){
-                return dicas.get(2);
-            }else{
-                return dicas.get(3);
-            }
+            // if(palavra_sorteada == palavras.get(0)){
+            //     return dicas.get(0);
+            // }else if(palavra_sorteada == palavras.get(1)){
+            //     return dicas.get(1);
+            // }else if(palavra_sorteada == palavras.get(2)){
+            //     return dicas.get(2);
+            // }else{
+            //     return dicas.get(3);
+            // }
+            return dica;
             
         }
 
