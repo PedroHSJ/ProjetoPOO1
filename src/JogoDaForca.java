@@ -108,8 +108,18 @@ public class JogoDaForca {
         }
 
         public boolean terminou(){
-            boolean verificar = false;
-            return verificar;
+            return (acertos == palavra_sorteada.length() || penalidade == 6) ?  true : false;
+        }
+        public String getResultado() {
+        	if(penalidade == 6){ 
+        		return "Você foi enforcado!";
+        	}
+        	else if(acertos == palavra_sorteada.length()) {
+        		return "Parabéns!Você venceu.";
+        	}
+        	else {
+        		return "Jogo em andamento...";
+        	}
         }
 
         public String toString(){
