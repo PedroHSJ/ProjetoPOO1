@@ -22,7 +22,7 @@ public class AplicacaoConsole {
 			JogoDaForca jogo = new JogoDaForca("palavras.csv");
 
 			jogo.iniciar();
-			System.out.println("Dica da palavra = " + jogo.getDica());
+			System.out.println("Dica = " + jogo.getDica());
 			System.out.println("tamanho da palavra = " + jogo.getTamanho());
 			letrasAdivinhadas = new String[jogo.getTamanho()];	
 			Arrays.fill(letrasAdivinhadas, "");
