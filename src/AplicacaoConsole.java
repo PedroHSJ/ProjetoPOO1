@@ -39,12 +39,12 @@ public class AplicacaoConsole {
 						for(int i : posicoes)
 							letrasAdivinhadas[i] = letra;
 						System.out.println(Arrays.toString(letrasAdivinhadas));
-						System.out.println(jogo.toString());
-						//System.out.println("total de acertos="+jogo.getAcertos());
+						//System.out.println(jogo.toString());
+						System.out.println("total de acertos="+jogo.getAcertos());
 					} 
 					else {
-						System.out.println(jogo.toString());
-						//System.out.println("voce errou - penalidade="+jogo.getPenalidade()+", retirar "+ penalidades[jogo.getPenalidade()-1]);
+						//System.out.println(jogo.toString());
+						System.out.println("voce errou - penalidade="+jogo.getPenalidade()+", retirar "+ penalidades[jogo.getPenalidade()-1]);
 					}
 				}
 				catch(Exception e) {
@@ -53,10 +53,10 @@ public class AplicacaoConsole {
 			}
 			while(!jogo.terminou());
 
-			/*teclado.close();
+			teclado.close();
 			System.out.println("\n---- game over ----");
 			System.out.println("resultado final="+jogo.getResultado() );
-			System.out.println("situacao final ="+ Arrays.toString(letrasAdivinhadas));*/
+			System.out.println("situacao final ="+ Arrays.toString(letrasAdivinhadas));
 
 			System.out.println(jogo.toString());
 		}

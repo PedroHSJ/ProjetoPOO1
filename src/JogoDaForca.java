@@ -9,7 +9,6 @@ public class JogoDaForca {
     private ArrayList<String> palavras = new ArrayList<>(); // lista de palavras lidas do arquivo
     private ArrayList<String> dicas = new ArrayList<>(); // lista de dicas lidas do arquivo
     private String dica=""; // dica da palavra sorteada
-    private String[] letras; // letras da palavra sorteada
     private int acertos; // contador de acertos
     private int penalidade;
     private String palavra_sorteada;
@@ -46,14 +45,6 @@ public class JogoDaForca {
             palavra_sorteada = palavras.get(numero_sorteado);
             dica = dicas.get(numero_sorteado);
 
-
-            //Adicionando letras da palavra sorteada no array letras
-            for(int i = 0; i<palavra_sorteada.length(); i++){
-                pontos += palavra_sorteada.substring( i , i + 1) + ";";
-            }
-            letras = pontos.split(";");
-            //System.out.println(letras[0]);
-
             
         }
 
@@ -81,30 +72,43 @@ public class JogoDaForca {
         }
 
         public ArrayList<Integer> getPosicoes(String letra) throws Exception{
-            /*retorna uma lista com as posições encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
+           /*retorna uma lista com as posições encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
             letras encontradas na palavra por “*”. Contabiliza um acerto, para cada ocorrência encontrada, ou incrementa a
             penalidade, no caso da inexistência da letra. O parâmetro letra é válido se tem apenas 1 caractere alfabético sem
             acento – pode ser maiúscula ou minúscula.*/
             ArrayList<Integer> posicao = new ArrayList<>();
+            boolean acertou = false;
             String b = "*";
-            char v = letra.charAt(0);
-            char a = b.charAt(0);
+            char caractere = letra.charAt(0);
+            char asterisco = b.charAt(0);
             String letra_existente = "";
             int[] numeros;
 
             //int [] guarda_letras_que_existem;
-            
-            for(int j = 0; j < palavra_sorteada.length(); j++){
-                if(v == palavra_sorteada.charAt(j)){
-                    posicao.add(palavra_sorteada.indexOf(v));
-                    acertos = acertos + 1;
-                    //palavra_sorteada = palavra_sorteada.replace(v, a);
-                    break;
-                }else{
     
+            for(int j = 0; j < palavra_sorteada.length(); j++){
+                if(caractere == palavra_sorteada.charAt(j)){
+                    posicao.add(j);
+                    acertou = true;
                 }
             }
+            if(acertou){
+                acertos = acertos + 1;
+                palavra_sorteada = palavra_sorteada.replace(caractere, asterisco);
+            }else{
+                penalidade += 1;
+            }
             return posicao;
+        }
+
+        public int getPenalidade(){
+            //retorna a penalidade atual (0, 1, 2, ... 6)
+            return penalidade;
+        }
+        
+        public int getAcertos(){
+            //retorna o total de acertos
+            return acertos;
         }
 
         public boolean terminou(){
@@ -122,13 +126,13 @@ public class JogoDaForca {
         	}
         }
 
-        public String toString(){
-            return  "\n----------------------------TESTANDO SE TÁ CERTO---------------------------" +
-                    //"\nPalavra sorteada => " + this.getPalavra_sorteada() +
-                    "\nContando acertos => " + this.acertos +
-                    "\nContando Penalidade => " + this.penalidade;
-                    //"\nVendo => " + letras[0];
-        }
+        // public String toString(){
+        //     return  "\n----------------------------TESTANDO SE TÁ CERTO---------------------------" +
+        //             //"\nPalavra sorteada => " + this.getPalavra_sorteada() +
+        //             "\nContando acertos => " + this.acertos +
+        //             "\nContando Penalidade => " + this.penalidade;
+        //             //"\nVendo => " + letras[0];
+        // }
         /*public static void main(String[] args) throws Exception{
             JogoDaForca j1 = new JogoDaForca("palavras.csv");
             j1.iniciar();
