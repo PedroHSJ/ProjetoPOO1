@@ -8,6 +8,7 @@ import java.util.Random;
 public class JogoDaForca {
     private ArrayList<String> palavras = new ArrayList<>(); // lista de palavras lidas do arquivo
     private ArrayList<String> dicas = new ArrayList<>(); // lista de dicas lidas do arquivo
+    private ArrayList<Character> letras_colocadas = new ArrayList<>(); //lisa de letras colocadas
     private String dica=""; // dica da palavra sorteada
     private int acertos; // contador de acertos
     private int penalidade;
@@ -38,8 +39,6 @@ public class JogoDaForca {
         }
 
         public void iniciar(){
-            String pontos = "";
-            String partes;
             Random random = new Random();
             int numero_sorteado = random.nextInt(palavras.size());
             palavra_sorteada = palavras.get(numero_sorteado);
@@ -81,10 +80,20 @@ public class JogoDaForca {
             String b = "*";
             char caractere = letra.charAt(0);
             char asterisco = b.charAt(0);
-            String letra_existente = "";
-            int[] numeros;
+            
 
-            //int [] guarda_letras_que_existem;
+            //Exeções;
+            if(letra.length() > 1){
+                throw new Exception ("Digite um caractere por vez");
+            }
+
+            for(int i = 0; i < letras_colocadas.size(); i++){
+                if(caractere == letras_colocadas.get(i)){
+                    throw new Exception ("Letra já foi lançada");
+                }
+            }
+            //-------------------------------------------------------------------------
+            letras_colocadas.add(caractere);
     
             for(int j = 0; j < palavra_sorteada.length(); j++){
                 if(caractere == palavra_sorteada.charAt(j)){
@@ -95,6 +104,9 @@ public class JogoDaForca {
             if(acertou){
                 acertos = acertos + 1;
                 palavra_sorteada = palavra_sorteada.replace(caractere, asterisco);
+                if(posicao.size() == 2){
+                    acertos = acertos + 1;
+                }    
             }else{
                 penalidade += 1;
             }
@@ -125,22 +137,4 @@ public class JogoDaForca {
         		return "Jogo em andamento...";
         	}
         }
-
-        // public String toString(){
-        //     return  "\n----------------------------TESTANDO SE TÁ CERTO---------------------------" +
-        //             //"\nPalavra sorteada => " + this.getPalavra_sorteada() +
-        //             "\nContando acertos => " + this.acertos +
-        //             "\nContando Penalidade => " + this.penalidade;
-        //             //"\nVendo => " + letras[0];
-        // }
-        /*public static void main(String[] args) throws Exception{
-            JogoDaForca j1 = new JogoDaForca("palavras.csv");
-            j1.iniciar();
-            System.out.println(j1.toString());
-
-            System.out.println(j1.getPosicoes("A"));
-
-            
-    
-        }*/
-}
+}        
