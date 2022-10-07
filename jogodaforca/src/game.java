@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,15 +25,18 @@ public class game {
 	private JTextField textField;
 	private String letra;
 	private JogoDaForca jogo;
+	private ImageIcon icon;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	private JLabel lblNewLabel_6;
 	String[] penalidades = {"perna1", "perna2", "bra�o1", "bra�o2", "tronco", "cabe�a"};
+	private String[] corpo = {"1.png", "2.png","3.png","4.png","5.png","6.png"};
 	ArrayList<Integer> posicoes;
 	String[] letrasAdivinhadas;
 	private JLabel lblNewLabel_7;
 	private JLabel lblNewLabel_8;
+	private JLabel lblNewLabel_9;
 	
 
 	/**
@@ -91,6 +95,7 @@ public class game {
 				letra = textField.getText().toUpperCase();
 				textField.setText("");
 				lblNewLabel_7.setText("...");
+				frame.getRootPane().setDefaultButton(btnNewButton);
 			  
 					try {
 						posicoes = jogo.getPosicoes(letra);					
@@ -106,13 +111,28 @@ public class game {
 							lblNewLabel_5.setText("total de acertos = "+jogo.getAcertos());
 						}else {
 							System.out.println("voce errou - penalidade="+jogo.getPenalidade()+", retirar "+ penalidades[jogo.getPenalidade()-1]);
+							//if(jogo.getPenalidade() == 1) {
+								
+								int x = jogo.getPenalidade();
+								for(int i = 1; i<corpo.length; i++){
+									if(i == x){
+										icon = new ImageIcon(game.class.getResource("/imagens/" + corpo[jogo.getPenalidade()-1]));
+										lblNewLabel_9.setIcon(icon); 
+										icon.setImage(icon.getImage().getScaledInstance(lblNewLabel_9.getWidth(), lblNewLabel_9.getHeight(), 1) );
+										lblNewLabel_9.setIcon(icon);
+									}
+								//}						
+												
+							}
+							
 							lblNewLabel_6.setText("total de erros = " + jogo.getPenalidade());
+							lblNewLabel_9.setText(penalidades[jogo.getPenalidade()-1]);
 						}
 					}
 					catch(Exception a) {
 						System.out.println(a.getMessage());
-						lblNewLabel_7.setText(a.getMessage());					
-
+						lblNewLabel_7.setText(a.getMessage());
+						
 					}
 					/*catch(NullPointerException b) {
 						System.out.println(b.getMessage());
@@ -129,17 +149,25 @@ public class game {
 		});
 		btnNewButton.setBounds(45, 137, 52, 23);
 		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setEnabled(false);
 		
 		JButton btnNewButton_1 = new JButton("iniciar jogo");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					jogo = new JogoDaForca("palavras.csv");
+					icon = new ImageIcon(game.class.getResource("/imagens/0.png"));
+					lblNewLabel_9.setIcon(icon);
+					
+					icon.setImage(icon.getImage().getScaledInstance(lblNewLabel_9.getWidth(), lblNewLabel_9.getHeight(), 1) );
+					lblNewLabel_9.setIcon(icon);
+					
 					
 					jogo.iniciar();									
 					lblNewLabel_2.setText(jogo.getDica());
 					letrasAdivinhadas = new String[jogo.getTamanho()];	
 					Arrays.fill(letrasAdivinhadas, "");
+					btnNewButton.setEnabled(true);
 					
 					//em caso de inicio de uma nova partida
 					lblNewLabel_3.setText("*");
@@ -184,5 +212,9 @@ public class game {
 		lblNewLabel_8 = new JLabel("ALERTA:");
 		lblNewLabel_8.setBounds(20, 197, 86, 23);
 		frame.getContentPane().add(lblNewLabel_8);
+		
+		lblNewLabel_9 = new JLabel("FORCA");
+		lblNewLabel_9.setBounds(193, 96, 118, 36);
+		frame.getContentPane().add(lblNewLabel_9);
 	}
 }

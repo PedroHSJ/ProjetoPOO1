@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 import java.util.Random;
 
 public class JogoDaForca {
@@ -15,8 +16,8 @@ public class JogoDaForca {
     private String palavra_sorteada;
 
         public JogoDaForca(String nomearquivo)  throws Exception{
-            /*l√™ as palavras + dicas do arquivo e as coloca nas respectivas listas. Lan√ßa (throw) a exce√ß√£o ‚Äúarquivo inexistente‚Äù,
-            caso o arquivo n√£o exista.*/
+            /*lÍ as palavras + dicas do arquivo e as coloca nas respectivas listas. LanÁa (throw) a exceÁ„o ìarquivo inexistenteî,
+            caso o arquivo n„o exista.*/
             try {
                 Scanner arquivo = new Scanner(new File(nomearquivo));
                 String entrada, palavra;
@@ -31,6 +32,7 @@ public class JogoDaForca {
                     dicas.add(dica);
                 }
                 arquivo.close();
+                System.out.println(palavras);
                 //System.out.println(palavras);
                 //System.out.println(dicas);
             } catch (FileNotFoundException e) {
@@ -71,29 +73,37 @@ public class JogoDaForca {
         }
 
         public ArrayList<Integer> getPosicoes(String letra) throws Exception{
-           /*retorna uma lista com as posi√ß√µes encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
-            letras encontradas na palavra por ‚Äú*‚Äù. Contabiliza um acerto, para cada ocorr√™ncia encontrada, ou incrementa a
-            penalidade, no caso da inexist√™ncia da letra. O par√¢metro letra √© v√°lido se tem apenas 1 caractere alfab√©tico sem
-            acento ‚Äì pode ser mai√∫scula ou min√∫scula.*/
-            ArrayList<Integer> posicao = new ArrayList<>();
-            boolean acertou = false;
-            String b = "*";
-            char caractere = letra.charAt(0);
-            char asterisco = b.charAt(0);
+           /*retorna uma lista com as posiÁıes encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
+            letras encontradas na palavra por ì*î. Contabiliza um acerto, para cada ocorrÍncia encontrada, ou incrementa a
+            penalidade, no caso da inexistÍncia da letra. O par‚metro letra È v·lido se tem apenas 1 caractere alfabÈtico sem
+            acento ñ pode ser mai˙scula ou min˙scula.*/
+           
+        	//ExeÁıes;
+        	letra = letra.toUpperCase().trim();
+        	if(letra.length() > 1 || letra.length() == 0){
+        		throw new Exception ("Digite um caractere por vez.");
+        	}
+        	
+        	if(!Pattern.matches("[a-zA-Z]", letra)) {
+        		throw new Exception ("Digite uma letra.");
+
+        	}
+        	//letra = letra.toUpperCase().trim();
             
-
-            //Exe√ß√µes;
-            if(letra.length() > 1){
-                throw new Exception ("Digite um caractere por vez");
-            }
-
-            for(int i = 0; i < letras_colocadas.size(); i++){
-                if(caractere == letras_colocadas.get(i)){
-                    throw new Exception ("Letra j√° foi lan√ßada");
-                }
-            }
             //-------------------------------------------------------------------------
-            
+        	
+        	ArrayList<Integer> posicao = new ArrayList<>();
+        	
+        	boolean acertou = false;
+        	String b = "*";
+        	char caractere = letra.charAt(0);
+        	char asterisco = b.charAt(0);
+        	
+        	for(int i = 0; i < letras_colocadas.size(); i++){
+        		if(caractere == letras_colocadas.get(i)){
+        			throw new Exception ("Letra j· foi lanÁada");
+        		}
+        	}
                 letras_colocadas.add(caractere);
     
                 for(int j = 0; j < palavra_sorteada.length(); j++){
@@ -129,13 +139,13 @@ public class JogoDaForca {
         }
         public String getResultado() {
         	if(penalidade == 6){ 
-        		return "Voc√™ foi enforcado!";
+        		return "VocÍ foi enforcado!";
         	}
         	else if(acertos == palavra_sorteada.length()) {
-        		return "Parab√©ns!Voc√™ venceu.";
+        		return "ParabÈns!VocÍ venceu.";
         	}
         	else {
         		return "Jogo em andamento...";
         	}
-        }
-}        
+        }		
+}
